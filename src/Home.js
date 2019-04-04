@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, { fetchUsers } from './store';
+import { fetchUsers } from './store';
 
 class Home extends Component {
   componentDidMount() {

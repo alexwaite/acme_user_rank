@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, { fetchUsers } from './store';
+import { fetchUsers, deleteUserFromDatabase } from './store';
 
 class Users extends Component {
   componentDidMount() {
@@ -23,7 +23,7 @@ class Users extends Component {
               <button
                 type="button"
                 className="btn btn-danger btn-sm"
-                onClick={() => deleteUser(user.id)}
+                onClick={() => this.props.deleteUser(user.id)}
               >
                 Delete
               </button>
@@ -42,6 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchInitialUsers: () => dispatch(fetchUsers()),
+    deleteUser: id => dispatch(deleteUserFromDatabase(id)),
   };
 };
 

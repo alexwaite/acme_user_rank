@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Nav = () => {
-  return (
-    <ul className="nav nav-pills">
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/">
-          Home
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/users">
-          Users
-        </NavLink>
-      </li>
-    </ul>
-  );
+class Nav extends Component {
+  render() {
+    return (
+      <ul className="nav nav-tabs">
+        <li className="nav-item">
+          <NavLink className="nav-link" activeclassname="selected" exact to="/">
+            Home
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            className="nav-link"
+            activeclassname="selected"
+            exact
+            to="/users"
+          >
+            Users ({this.props.users.length})
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            className="nav-link"
+            activeclassname="selected"
+            exact
+            to="/users/create"
+          >
+            Create A User
+          </NavLink>
+        </li>
+      </ul>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return { users: state.users };
 };
 
-export default Nav;
+export default connect(mapStateToProps)(Nav);

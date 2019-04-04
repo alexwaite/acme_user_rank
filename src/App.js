@@ -3,22 +3,9 @@ import Nav from './Nav';
 import { HashRouter, Route } from 'react-router-dom';
 import Users from './Users';
 import Home from './Home';
-import axios from 'axios';
+import UserForm from './UserForm';
 
 export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-    };
-  }
-
-  loadData = () => {
-    return axios
-      .get('/api/users')
-      .then(response => this.setState({ users: response.data }));
-  };
-
   render() {
     return (
       <HashRouter>
@@ -27,6 +14,7 @@ export default class App extends Component {
           <Nav />
           <Route exact path="/" render={() => <Home />} />
           <Route exact path="/users" render={() => <Users />} />
+          <Route exact path="/users/create" render={() => <UserForm />} />
         </div>
       </HashRouter>
     );

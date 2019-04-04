@@ -30,6 +30,16 @@ const syncAndSeed = () => {
           bio: 'moe is great',
           rank: 1,
         }),
+        User.create({
+          name: 'larry',
+          bio: 'larry is also pretty great',
+          rank: 2,
+        }),
+        User.create({
+          name: 'curly',
+          bio: `curly's fine qualities are unrankable, really`,
+          rank: 3,
+        }),
       ]);
     })
     .then(() => console.log('connection synced and data seeded'));
@@ -57,11 +67,17 @@ app.get('/api/users', async (req, res, next) => {
 });
 
 app.delete('/api/users/:id', async (req, res, next) => {
+  const id = +req.params.id;
   try {
-    const id = req.params.id;
-    await User.destroy({ wehre: { id } });
+    await User.destroy({ where: { id } });
     res.status(204).end();
   } catch (err) {
     next(err);
   }
+});
+
+app.post('/api/users/', (req, res, next) => {
+  User.create(req.body)
+    .then(user => res.json(user))
+    .catch(next);
 });
